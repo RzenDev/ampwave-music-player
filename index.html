@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmpWave Music Player</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('service-worker.js');
+        });
+      }
+    </script>
+</head>
+<body>
+    <div class="winamp-container">
+        <!-- Header principal -->
+        <div class="winamp-header">
+            <div class="title-bar">
+                <div class="title-text">AmpWave Music Player</div>
+                <div class="theme-selector">
+                    <select id="themeSelector">
+                        <option value="classic">Original Amp</option>
+                        <option value="modern">Moderno</option>
+                        <option value="retro">Retro 90s</option>
+                        <option value="neon">Neon Cyber</option>
+                        <option value="minimal">Minimalista</option>
+                        <option value="dark">Dark Mode</option>
+                    </select>
+                </div>
+                <div class="window-controls">
+                    <button class="minimize-btn"><i class="fas fa-minus"></i></button>
+                    <button class="maximize-btn"><i class="fas fa-expand"></i></button>
+                    <button class="close-btn"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel principal -->
+        <div class="main-panel">
+            <!-- Información de la canción -->
+            <div class="song-info">
+                <div class="song-title" id="songTitle">No hay canción seleccionada</div>
+                <div class="song-artist" id="songArtist">-</div>
+            </div>
+
+            <!-- Visualizador de audio -->
+            <div class="visualizer-container">
+                <canvas id="visualizer" width="300" height="60"></canvas>
+            </div>
+
+            <!-- Controles de reproducción -->
+            <div class="playback-controls">
+                <button class="control-btn" id="prevBtn">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="control-btn play-btn" id="playBtn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="control-btn" id="nextBtn">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+                <button class="control-btn" id="stopBtn">
+                    <i class="fas fa-stop"></i>
+                </button>
+            </div>
+
+            <!-- Barra de progreso -->
+            <div class="progress-container">
+                <div class="time-display">
+                    <span id="currentTime">0:00</span>
+                    <span id="totalTime">0:00</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                    <input type="range" id="progressSlider" min="0" max="100" value="0">
+                </div>
+            </div>
+
+            <!-- Controles de volumen -->
+            <div class="volume-controls">
+                <i class="fas fa-volume-up"></i>
+                <div class="volume-slider">
+                    <input type="range" id="volumeSlider" min="0" max="100" value="70">
+                </div>
+            </div>
+
+            <!-- Ecualizador -->
+            <div class="equalizer-section">
+                <div class="equalizer-header">Ecualizador</div>
+                <div class="equalizer-bands">
+                    <div class="eq-band">
+                        <span class="eq-gain-value">0 dB</span>
+                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="60">
+                        <label>60Hz</label>
+                    </div>
+                    <div class="eq-band">
+                        <span class="eq-gain-value">0 dB</span>
+                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="170">
+                        <label>170Hz</label>
+                    </div>
+                    <div class="eq-band">
+                        <span class="eq-gain-value">0 dB</span>
+                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="310">
+                        <label>310Hz</label>
+                    </div>
+                    <div class="eq-band">
+                        <span class="eq-gain-value">0 dB</span>
+                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="600">
+                        <label>600Hz</label>
+                    </div>
+                    <div class="eq-band">
+                        <span class="eq-gain-value">0 dB</span>
+                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="1000">
+                        <label>1kHz</label>
+                    </div>
+                    <div class="eq-band">
+                        <span class="eq-gain-value">0 dB</span>
+                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="3000">
+                        <label>3kHz</label>
+                    </div>
+                    <div class="eq-band">
+                        <span class="eq-gain-value">0 dB</span>
+                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="6000">
+                        <label>6kHz</label>
+                    </div>
+                    <div class="eq-band">
+                        <span class="eq-gain-value">0 dB</span>
+                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="12000">
+                        <label>12kHz</label>
+                    </div>
+                    <div class="eq-band">
+                        <span class="eq-gain-value">0 dB</span>
+                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="14000">
+                        <label>14kHz</label>
+                    </div>
+                    <div class="eq-band">
+                        <span class="eq-gain-value">0 dB</span>
+                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="16000">
+                        <label>16kHz</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Área de playlist -->
+            <div class="playlist-section">
+                <div class="playlist-header">
+                    <h3>Lista de Reproducción</h3>
+                    <button class="add-btn" id="addBtn">
+                        <i class="fas fa-plus"></i> Agregar
+                    </button>
+                </div>
+                <div class="playlist-container" id="playlist">
+                    <div class="playlist-placeholder">
+                        Arrastra archivos de música aquí o haz clic en "Agregar"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input oculto para seleccionar archivos -->
+        <input type="file" id="fileInput" accept="audio/*" multiple style="display: none;">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

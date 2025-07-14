@@ -1,0 +1,16 @@
+{
+  "name": "AmpWave Music Player",
+  "short_name": "AmpWave",
+  "description": "Un reproductor de música moderno, ligero y seguro.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#222222",
+  "theme_color": "#00ff00",
+  "icons": [
+    {
+      "src": "imagenes/imagenes (7).png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+} 

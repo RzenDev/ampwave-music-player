@@ -1,0 +1,17 @@
+{
+  "name": "ampwave-music-player",
+  "productName": "AmpWave Music Player",
+  "version": "1.0.0",
+  "description": "Un reproductor de música moderno y retro inspirado en Winamp, ahora como app de escritorio.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.2.3",
+    "electron-builder": "^26.0.12"
+  }
+}
