@@ -471,6 +471,8 @@ class WinampPlayer {
         document.getElementById('themeSelector').value = themeName;
         // Actualizar colores del visualizador según el tema
         this.updateVisualizerColors(themeName);
+        // Cambiar el color de la barra de navegador
+        this.updateThemeColorMeta(themeName);
     }
 
     loadSavedTheme() {
@@ -495,6 +497,20 @@ class WinampPlayer {
         };
         
         this.currentThemeColors = this.visualizerColors[themeName] || this.visualizerColors.classic;
+    }
+
+    updateThemeColorMeta(themeName) {
+        const themeColors = {
+            classic: '#00ff00',
+            modern: '#667eea',
+            retro: '#f1c40f',
+            neon: '#00ffff',
+            minimal: '#007bff',
+            dark: '#222222'
+        };
+        const color = themeColors[themeName] || '#00ff00';
+        const meta = document.getElementById('themeColorMeta');
+        if (meta) meta.setAttribute('content', color);
     }
 }
 
