@@ -47,6 +47,10 @@ Ser el reproductor de música personal más accesible, personalizable y multipla
 2. Haz clic en “Instalar app” o “Agregar a pantalla de inicio”.
 3. ¡Disfruta de tu música local en cualquier dispositivo!
 
+### Novedades visuales y usabilidad
+- El ecualizador ahora es **vertical y responsive**: muestra 5 bandas en móvil y 10 bandas en tablet/desktop.
+- El reproductor es más ancho y cómodo en pantallas grandes, manteniendo la ligereza y estructura.
+
 ### Como app de escritorio
 1. Descarga el instalador para tu sistema operativo (próximamente).
 2. Instala y ejecuta AmpWave Music Player.
