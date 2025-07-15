@@ -94,6 +94,11 @@ class WinampPlayer {
         
         // Cargar tema guardado
         this.loadSavedTheme();
+        // Botón Reset del ecualizador
+        const eqResetBtn = document.getElementById('eqResetBtn');
+        if (eqResetBtn) {
+            eqResetBtn.addEventListener('click', () => this.resetEqualizer());
+        }
     }
 
     setupAudioContext() {
@@ -126,6 +131,7 @@ class WinampPlayer {
         const bandsContainer = document.getElementById('equalizerBands');
         if (!bandsContainer) return;
         bandsContainer.innerHTML = '';
+        const isMobile = window.innerWidth < 700;
         this.eqFrequencies.forEach((freq, idx) => {
             const band = document.createElement('div');
             band.className = 'eq-band';
@@ -145,9 +151,17 @@ class WinampPlayer {
             const label = document.createElement('label');
             label.textContent = freq >= 1000 ? (freq/1000) + 'kHz' : freq + 'Hz';
             label.setAttribute('for', sliderId);
-            band.appendChild(gainValue);
-            band.appendChild(slider);
-            band.appendChild(label);
+            if (isMobile) {
+                // Horizontal: valor dB | slider | label
+                band.appendChild(gainValue);
+                band.appendChild(slider);
+                band.appendChild(label);
+            } else {
+                // Vertical: valor dB arriba, slider, label abajo
+                band.appendChild(gainValue);
+                band.appendChild(slider);
+                band.appendChild(label);
+            }
             bandsContainer.appendChild(band);
         });
     }
@@ -578,6 +592,17 @@ class WinampPlayer {
         const color = themeColors[themeName] || '#00ff00';
         const meta = document.getElementById('themeColorMeta');
         if (meta) meta.setAttribute('content', color);
+    }
+
+    resetEqualizer() {
+        if (!this.eqSliders || !this.eqFilters) return;
+        this.eqSliders.forEach((slider, i) => {
+            slider.value = 0;
+            this.eqFilters[i].gain.value = 0;
+            if (this.eqGainLabels && this.eqGainLabels[i]) {
+                this.eqGainLabels[i].textContent = '+00 dB';
+            }
+        });
     }
 }
 
