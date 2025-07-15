@@ -43,7 +43,7 @@ Ser el reproductor de música personal más accesible, personalizable y multipla
 
 ## 📱 Instalación y uso
 ### Como app web (PWA)
-1. Abre [https://ampwave-music-player-a9u6okw8y-devrzen.vercel.app/](https://ampwave-music-player-a9u6okw8y-devrzen.vercel.app/) en tu navegador.
+1. Abre [https://ampwave-music-player.vercel.app/](https://ampwave-music-player.vercel.app/) en tu navegador.
 2. Haz clic en “Instalar app” o “Agregar a pantalla de inicio”.
 3. ¡Disfruta de tu música local en cualquier dispositivo!
 
