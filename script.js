@@ -11,7 +11,9 @@ class WinampPlayer {
         this.currentThemeColors = ['#00ff00', '#00cc00', '#008800']; // Colores por defecto
         
         // Ecualizador
-        this.eqFrequencies = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
+        this.eqFrequenciesFull = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
+        this.eqFrequenciesMobile = [60, 310, 1000, 6000, 16000];
+        this.eqFrequencies = [];
         this.eqFilters = [];
         this.eqSliders = [];
         this.eqSource = null;
@@ -19,8 +21,9 @@ class WinampPlayer {
         this.initializeElements();
         this.setupEventListeners();
         this.setupAudioContext();
-        this.setupEqualizer();
+        this.setupResponsiveEqualizer();
         this.loadPlaylistFromStorage();
+        window.addEventListener('resize', () => this.setupResponsiveEqualizer());
     }
 
     initializeElements() {
@@ -99,6 +102,45 @@ class WinampPlayer {
         } catch (error) {
             console.log('AudioContext no soportado');
         }
+    }
+
+    setupResponsiveEqualizer() {
+        // Decide qué frecuencias usar según el ancho de pantalla
+        const width = window.innerWidth;
+        if (width < 700) {
+            this.eqFrequencies = this.eqFrequenciesMobile;
+        } else {
+            this.eqFrequencies = this.eqFrequenciesFull;
+        }
+        this.renderEqualizerBands();
+        this.setupEqualizer();
+    }
+
+    renderEqualizerBands() {
+        const bandsContainer = document.getElementById('equalizerBands');
+        if (!bandsContainer) return;
+        bandsContainer.innerHTML = '';
+        this.eqFrequencies.forEach(freq => {
+            const band = document.createElement('div');
+            band.className = 'eq-band';
+            const gainValue = document.createElement('span');
+            gainValue.className = 'eq-gain-value';
+            gainValue.textContent = '0 dB';
+            const slider = document.createElement('input');
+            slider.type = 'range';
+            slider.min = -12;
+            slider.max = 12;
+            slider.value = 0;
+            slider.step = 0.5;
+            slider.className = 'eq-slider';
+            slider.setAttribute('data-freq', freq);
+            const label = document.createElement('label');
+            label.textContent = freq >= 1000 ? (freq/1000) + 'kHz' : freq + 'Hz';
+            band.appendChild(gainValue);
+            band.appendChild(slider);
+            band.appendChild(label);
+            bandsContainer.appendChild(band);
+        });
     }
 
     setupEqualizer() {

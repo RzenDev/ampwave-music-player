@@ -1294,3 +1294,94 @@ body.theme-dark .add-btn:hover {
 .winamp-container.theme-dark .add-btn:hover {
     background: #5a5a5a;
 } 
+
+/* Ecualizador */
+.equalizer-section {
+    margin: 20px 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    border: 1px solid #333;
+}
+
+.equalizer-header {
+    color: #00ff00;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.equalizer-bands {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+    width: 100%;
+}
+
+.eq-band {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 36px;
+    max-width: 44px;
+}
+
+.eq-gain-value {
+    font-size: 11px;
+    color: #00ff00;
+    margin-bottom: 2px;
+    min-height: 18px;
+}
+
+.eq-slider {
+    writing-mode: bt-lr; /* vertical-rl no es compatible en todos los navegadores */
+    -webkit-appearance: slider-vertical;
+    width: 32px;
+    height: 90px;
+    margin: 0 0 4px 0;
+}
+
+.eq-band label {
+    font-size: 10px;
+    color: #ccc;
+    margin-top: 2px;
+}
+
+/* Responsive: más ancho en tablet/desktop */
+@media (min-width: 700px) {
+    .winamp-container {
+        width: 520px;
+        max-width: 90vw;
+    }
+    .main-panel {
+        padding: 30px;
+    }
+    .equalizer-bands {
+        gap: 18px;
+    }
+    .eq-slider {
+        height: 120px;
+    }
+}
+
+@media (max-width: 699px) {
+    .winamp-container {
+        width: 100vw;
+        min-width: 0;
+        max-width: 100vw;
+        border-radius: 10px;
+        height: 100dvh;
+        min-height: 0;
+    }
+    .main-panel {
+        padding: 10px;
+    }
+    .equalizer-bands {
+        gap: 8px;
+    }
+    .eq-slider {
+        height: 70px;
+    }
+} 

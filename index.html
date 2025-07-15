@@ -92,57 +92,8 @@
             <!-- Ecualizador -->
             <div class="equalizer-section">
                 <div class="equalizer-header">Ecualizador</div>
-                <div class="equalizer-bands">
-                    <div class="eq-band">
-                        <span class="eq-gain-value">0 dB</span>
-                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="60">
-                        <label>60Hz</label>
-                    </div>
-                    <div class="eq-band">
-                        <span class="eq-gain-value">0 dB</span>
-                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="170">
-                        <label>170Hz</label>
-                    </div>
-                    <div class="eq-band">
-                        <span class="eq-gain-value">0 dB</span>
-                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="310">
-                        <label>310Hz</label>
-                    </div>
-                    <div class="eq-band">
-                        <span class="eq-gain-value">0 dB</span>
-                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="600">
-                        <label>600Hz</label>
-                    </div>
-                    <div class="eq-band">
-                        <span class="eq-gain-value">0 dB</span>
-                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="1000">
-                        <label>1kHz</label>
-                    </div>
-                    <div class="eq-band">
-                        <span class="eq-gain-value">0 dB</span>
-                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="3000">
-                        <label>3kHz</label>
-                    </div>
-                    <div class="eq-band">
-                        <span class="eq-gain-value">0 dB</span>
-                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="6000">
-                        <label>6kHz</label>
-                    </div>
-                    <div class="eq-band">
-                        <span class="eq-gain-value">0 dB</span>
-                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="12000">
-                        <label>12kHz</label>
-                    </div>
-                    <div class="eq-band">
-                        <span class="eq-gain-value">0 dB</span>
-                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="14000">
-                        <label>14kHz</label>
-                    </div>
-                    <div class="eq-band">
-                        <span class="eq-gain-value">0 dB</span>
-                        <input type="range" min="-12" max="12" value="0" step="0.5" class="eq-slider" data-freq="16000">
-                        <label>16kHz</label>
-                    </div>
+                <div class="equalizer-bands" id="equalizerBands">
+                    <!-- Las bandas del ecualizador se generarán dinámicamente desde JS -->
                 </div>
             </div>
 
