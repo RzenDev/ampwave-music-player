@@ -343,21 +343,35 @@ class WinampPlayer {
     }
 
     startVisualizer() {
-        if (!this.analyser || !this.audioContext || !this.eqSource) return;
-        // Desconectar conexiones previas de la cadena de audio
+        if (!this.analyser || !this.audioContext || !this.eqSource) {
+            console.warn('Visualizer setup incomplete. Missing analyser, audioContext, or eqSource.');
+            return;
+        }
+        // Desconectar el analizador de su destino
         try {
-            this.analyser.disconnect();
-        } catch (e) {}
+            this.analyser.disconnect(this.audioContext.destination);
+        } catch (e) {
+            // Puede que no estuviera conectado
+        }
+        // Desconectar todos los filtros de EQ de sus destinos
         this.eqFilters.forEach(filter => {
             try { filter.disconnect(); } catch (e) {}
         });
-        // Reconstruir la cadena de nodos
-        let node = this.eqSource;
-        this.eqFilters.forEach(filter => {
-            node.connect(filter);
-            node = filter;
-        });
-        node.connect(this.analyser);
+        // Desconectar eqSource de cualquier cosa a la que estuviera conectado
+        try {
+            this.eqSource.disconnect();
+        } catch (e) {
+            // Puede que no estuviera conectado
+        }
+        // Reconstruir la cadena limpia
+        let currentNode = this.eqSource;
+        if (this.eqFilters.length > 0) {
+            this.eqFilters.forEach(filter => {
+                currentNode.connect(filter);
+                currentNode = filter;
+            });
+        }
+        currentNode.connect(this.analyser);
         this.analyser.connect(this.audioContext.destination);
         this.animate();
     }
