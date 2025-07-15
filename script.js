@@ -21,6 +21,10 @@ class WinampPlayer {
         this.initializeElements();
         this.setupEventListeners();
         this.setupAudioContext();
+        // Crear el MediaElementSourceNode una sola vez
+        if (this.audioContext) {
+            this.eqSource = this.audioContext.createMediaElementSource(this.audio);
+        }
         this.setupResponsiveEqualizer();
         this.loadPlaylistFromStorage();
         window.addEventListener('resize', () => this.setupResponsiveEqualizer());
@@ -339,26 +343,20 @@ class WinampPlayer {
     }
 
     startVisualizer() {
-        if (!this.analyser) return;
-        // Desconectar conexiones previas si existen
-        if (this.eqSource) {
-            try { 
-                this.eqSource.disconnect(); 
-            } catch (e) {}
-            try {
-                this.eqSource.mediaElement = null;
-            } catch (e) {}
-            this.eqSource = null;
-        }
-        // Crear nueva fuente
-        this.eqSource = this.audioContext.createMediaElementSource(this.audio);
-        // Conectar filtros en cadena
+        if (!this.analyser || !this.audioContext || !this.eqSource) return;
+        // Desconectar conexiones previas de la cadena de audio
+        try {
+            this.analyser.disconnect();
+        } catch (e) {}
+        this.eqFilters.forEach(filter => {
+            try { filter.disconnect(); } catch (e) {}
+        });
+        // Reconstruir la cadena de nodos
         let node = this.eqSource;
         this.eqFilters.forEach(filter => {
             node.connect(filter);
             node = filter;
         });
-        // node ahora es el último filtro
         node.connect(this.analyser);
         this.analyser.connect(this.audioContext.destination);
         this.animate();
