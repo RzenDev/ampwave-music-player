@@ -21,8 +21,8 @@ class WinampPlayer {
         this.initializeElements();
         this.setupEventListeners();
         this.setupAudioContext();
-        // Crear el MediaElementSourceNode una sola vez
-        if (this.audioContext) {
+        // Crear el MediaElementSourceNode una sola vez y nunca más
+        if (this.audioContext && !this.eqSource) {
             this.eqSource = this.audioContext.createMediaElementSource(this.audio);
         }
         this.setupResponsiveEqualizer();
@@ -98,7 +98,9 @@ class WinampPlayer {
 
     setupAudioContext() {
         try {
-            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            if (!this.audioContext) {
+                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
             this.analyser = this.audioContext.createAnalyser();
             this.analyser.fftSize = 256;
             this.bufferLength = this.analyser.frequencyBinCount;
@@ -350,12 +352,16 @@ class WinampPlayer {
             console.warn('Visualizer setup incomplete. Missing analyser, audioContext, or eqSource.');
             return;
         }
+        // Si el contexto está cerrado, recargar la página (no se puede crear otro MediaElementSourceNode)
+        if (this.audioContext.state === 'closed') {
+            alert('El contexto de audio se ha cerrado. Recarga la página para continuar usando el reproductor.');
+            window.location.reload();
+            return;
+        }
         // Desconectar el analizador de su destino
         try {
             this.analyser.disconnect(this.audioContext.destination);
-        } catch (e) {
-            // Puede que no estuviera conectado
-        }
+        } catch (e) {}
         // Desconectar todos los filtros de EQ de sus destinos
         this.eqFilters.forEach(filter => {
             try { filter.disconnect(); } catch (e) {}
@@ -363,9 +369,7 @@ class WinampPlayer {
         // Desconectar eqSource de cualquier cosa a la que estuviera conectado
         try {
             this.eqSource.disconnect();
-        } catch (e) {
-            // Puede que no estuviera conectado
-        }
+        } catch (e) {}
         // Reconstruir la cadena limpia
         let currentNode = this.eqSource;
         if (this.eqFilters.length > 0) {
