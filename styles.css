@@ -1322,15 +1322,27 @@ body.theme-dark .add-btn:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-end;
     min-width: 36px;
     max-width: 44px;
+    position: relative;
 }
 
 .eq-gain-value {
     font-size: 11px;
     color: #00ff00;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
     min-height: 18px;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    background: rgba(0,0,0,0.7);
+    border-radius: 4px;
+    padding: 1px 4px;
 }
 
 .eq-slider {
@@ -1341,12 +1353,16 @@ body.theme-dark .add-btn:hover {
     width: 20px;
     height: 70px;
     margin: 0 0 4px 0;
+    display: block;
 }
 
 .eq-band label {
     font-size: 10px;
     color: #ccc;
-    margin-top: 2px;
+    margin-top: 4px;
+    text-align: center;
+    width: 100%;
+    display: block;
 }
 
 /* Responsive: más ancho en tablet/desktop */

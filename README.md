@@ -43,17 +43,52 @@ Ser el reproductor de música personal más accesible, personalizable y multipla
 
 ## 📱 Instalación y uso
 ### Como app web (PWA)
-1. Abre [https://ampwave-music-player-devrzen.vercel.app/](https://ampwave-music-player-devrzen.vercel.app/) en tu navegador.
+1. Abre [https://ampwave-music-player-a9u6okw8y-devrzen.vercel.app/](https://ampwave-music-player-a9u6okw8y-devrzen.vercel.app/) en tu navegador.
 2. Haz clic en “Instalar app” o “Agregar a pantalla de inicio”.
 3. ¡Disfruta de tu música local en cualquier dispositivo!
 
-### Novedades visuales y usabilidad
-- El ecualizador ahora es **vertical y responsive**: muestra 5 bandas en móvil y 10 bandas en tablet/desktop.
-- El reproductor es más ancho y cómodo en pantallas grandes, manteniendo la ligereza y estructura.
+### Repositorio
+- [GitHub: RzenDev/ampwave-music-player](https://github.com/RzenDev/ampwave-music-player)
 
-### Como app de escritorio
-1. Descarga el instalador para tu sistema operativo (próximamente).
-2. Instala y ejecuta AmpWave Music Player.
+---
+
+## 📖 Historia del nombre: ¿Por qué “AmpWave Music Player”?
+
+En la era de los reproductores clásicos, la nostalgia y la innovación se cruzaron en un punto: la pasión por la música y la tecnología. “AmpWave” nace de la fusión de dos conceptos clave:
+
+- **Amp**: Un guiño a los amplificadores de audio y a la legendaria estética Winamp, pero con una visión moderna y sin ataduras al pasado.
+- **Wave**: Representa la universalidad de la música como onda, vibración y energía, y también la tecnología de las formas de onda digitales (audio digital, visualizadores, etc).
+
+Así, “AmpWave Music Player” es más que un reproductor: es una ola de energía musical, un homenaje a la libertad de escuchar tu música, con el poder de la personalización y la tecnología actual. Su nombre refleja la misión de unir lo mejor del pasado y el presente, en una experiencia fresca, visual y universal.
+
+---
+
+## 🗺️ Diagrama de flujo de la app
+
+```mermaid
+flowchart TD
+    A[Inicio / Carga de la app] --> B{¿Archivos en playlist?}
+    B -- Sí --> C[Mostrar lista de reproducción]
+    B -- No --> D[Mostrar mensaje de bienvenida]
+    C --> E[Seleccionar canción]
+    E --> F[Reproducir canción]
+    F --> G[Actualizar visualizador de audio]
+    F --> H[Aplicar ecualizador]
+    F --> I[Actualizar controles de progreso y volumen]
+    F --> J[Permitir cambio de tema visual]
+    F --> K[Permitir drag & drop de canciones]
+    F --> L[Guardar preferencias en localStorage]
+    F --> M[Permitir control desde controles de reproducción]
+    M --> N{¿Canción termina?}
+    N -- Sí --> O[Siguiente canción]
+    N -- No --> F
+    O --> F
+    K --> C
+    D --> K
+    J --> F
+    H --> G
+    G --> F
+```
 
 ---
 
