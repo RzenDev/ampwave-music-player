@@ -342,7 +342,13 @@ class WinampPlayer {
         if (!this.analyser) return;
         // Desconectar conexiones previas si existen
         if (this.eqSource) {
-            try { this.eqSource.disconnect(); } catch (e) {}
+            try { 
+                this.eqSource.disconnect(); 
+            } catch (e) {}
+            try {
+                this.eqSource.mediaElement = null;
+            } catch (e) {}
+            this.eqSource = null;
         }
         // Crear nueva fuente
         this.eqSource = this.audioContext.createMediaElementSource(this.audio);

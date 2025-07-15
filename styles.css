@@ -1337,10 +1337,11 @@ body.theme-dark .add-btn:hover {
 
 .eq-slider {
     writing-mode: bt-lr; /* vertical-rl no es compatible en todos los navegadores */
-    -webkit-appearance: slider-vertical;
     width: 32px;
     height: 90px;
     margin: 0 0 4px 0;
+    writing-mode: vertical-lr;
+    direction: rtl;
 }
 
 .eq-band label {
