@@ -124,7 +124,7 @@ class WinampPlayer {
         const bandsContainer = document.getElementById('equalizerBands');
         if (!bandsContainer) return;
         bandsContainer.innerHTML = '';
-        this.eqFrequencies.forEach(freq => {
+        this.eqFrequencies.forEach((freq, idx) => {
             const band = document.createElement('div');
             band.className = 'eq-band';
             const gainValue = document.createElement('span');
@@ -138,8 +138,11 @@ class WinampPlayer {
             slider.step = 0.5;
             slider.className = 'eq-slider';
             slider.setAttribute('data-freq', freq);
+            const sliderId = `eq-slider-${freq}-${idx}`;
+            slider.id = sliderId;
             const label = document.createElement('label');
             label.textContent = freq >= 1000 ? (freq/1000) + 'kHz' : freq + 'Hz';
+            label.setAttribute('for', sliderId);
             band.appendChild(gainValue);
             band.appendChild(slider);
             band.appendChild(label);

@@ -977,13 +977,11 @@ body.theme-dark .add-btn:hover {
 @media (max-width: 700px) {
     .winamp-container .equalizer-bands {
         display: flex;
-        flex-direction: column;
-        gap: 12px;
-        overflow-y: auto;
-        max-height: 320px;
-        min-width: 0;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 10px;
         width: 100%;
-        align-items: stretch;
     }
     .winamp-container .eq-band {
         display: flex;
@@ -1336,12 +1334,13 @@ body.theme-dark .add-btn:hover {
 }
 
 .eq-slider {
-    writing-mode: bt-lr; /* vertical-rl no es compatible en todos los navegadores */
-    width: 32px;
-    height: 90px;
-    margin: 0 0 4px 0;
+    -webkit-appearance: none;
+    appearance: none;
     writing-mode: vertical-lr;
     direction: rtl;
+    width: 20px;
+    height: 70px;
+    margin: 0 0 4px 0;
 }
 
 .eq-band label {
